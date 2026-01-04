@@ -1,21 +1,28 @@
-# 4dev-tmux
+# 4dev Claude Toolkit
 
-Claude Code plugin for interacting with tmux during development.
+Development toolkit for Claude Code by [4dev.ai](https://4dev.ai).
 
 ## Features
 
+### Tmux Integration
 - **Auto-detect services** from `package.json` scripts
 - **Start dev environment** in tmux with split panes
 - **Monitor logs** from running services
 - **Send commands** to specific panes
 - **Diagnose errors** by checking service output
 
+## Commands
+
+| Command | Description |
+|---------|-------------|
+| `/4dev:startmux` | Start development services in tmux |
+
 ## Usage
 
 ### Start Development Session
 
 ```
-/startmux
+/4dev:startmux
 ```
 
 Detects your project's start scripts and launches them in a tmux session with split panes. Automatically begins monitoring for issues.
@@ -30,10 +37,21 @@ The tmux-monitor agent automatically:
 ## Installation
 
 ```bash
-claude --plugin-dir /path/to/4dev-tmux
+claude --plugin-dir /path/to/4dev-claude-toolkit
 ```
 
 ## Requirements
 
 - tmux installed and available in PATH
 - Project with `package.json` (or agent will ask how to start)
+
+## Roadmap
+
+Future additions to the toolkit:
+- Deployment workflows
+- Testing utilities
+- CI/CD integration
+
+## License
+
+MIT

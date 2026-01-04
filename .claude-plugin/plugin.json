@@ -1,9 +1,11 @@
 {
-  "name": "4dev-tmux",
+  "name": "4dev",
   "version": "0.1.0",
-  "description": "Interact with tmux for development workflows - start services, monitor logs, send commands",
+  "description": "4dev.ai development toolkit - tmux management, service monitoring, and more",
   "author": {
     "name": "ovidb"
   },
-  "keywords": ["tmux", "development", "monitoring", "devtools"]
+  "homepage": "https://4dev.ai",
+  "repository": "https://github.com/4dev-ai/4dev-claude-toolkit",
+  "keywords": ["claude", "tmux", "development", "devtools", "toolkit"]
 }
