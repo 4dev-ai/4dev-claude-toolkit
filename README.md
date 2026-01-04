@@ -1,4 +1,4 @@
-# claude-tmux
+# 4dev-tmux
 
 Claude Code plugin for interacting with tmux during development.
 
@@ -30,7 +30,7 @@ The tmux-monitor agent automatically:
 ## Installation
 
 ```bash
-claude --plugin-dir /path/to/claude-tmux
+claude --plugin-dir /path/to/4dev-tmux
 ```
 
 ## Requirements

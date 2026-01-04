@@ -1,5 +1,5 @@
 {
-  "name": "claude-tmux",
+  "name": "4dev-tmux",
   "version": "0.1.0",
   "description": "Interact with tmux for development workflows - start services, monitor logs, send commands",
   "author": {
