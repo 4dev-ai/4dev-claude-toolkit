@@ -41,6 +41,12 @@ Persistent browser and Electron interaction through Playwright for fast iterativ
 
 **Triggers**: "test the UI", "debug the browser", "check the page", "take a screenshot", "run visual QA", "test in browser"
 
+**Claude setup**:
+```bash
+claude plugin install playwright
+claude plugin enable playwright
+```
+
 **Project setup**:
 ```bash
 pnpm add -D playwright
