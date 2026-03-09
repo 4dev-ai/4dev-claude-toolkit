@@ -1,0 +1,16 @@
+This skill is adapted from the OpenAI Codex playwright-interactive skill:
+https://github.com/openai/skills/tree/main/skills/.curated/playwright-interactive
+
+The original skill attributes Playwright icon assets to the Microsoft
+`playwright-cli` repository.
+
+Copyright (c) Microsoft Corporation.
+
+Licensed under the Apache License, Version 2.0.
+See LICENSE.txt in this directory.
+
+Modifications:
+- Adapted from Codex js_repl workflow to Claude Code Bash-based workflow.
+- Replaced js_repl persistent session with tmux REPL and inline Node.js script approaches.
+- Removed codex.emitImage references; uses file-based screenshots with Read tool instead.
+- Added pnpm as default package manager.
