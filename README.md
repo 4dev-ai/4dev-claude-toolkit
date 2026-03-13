@@ -41,13 +41,12 @@ Persistent browser and Electron interaction through Playwright for fast iterativ
 
 **Triggers**: "test the UI", "debug the browser", "check the page", "take a screenshot", "run visual QA", "test in browser"
 
-**Claude setup**:
+To add the Playwright MCP server:
 ```bash
-claude plugin install playwright
-claude plugin enable playwright
+claude mcp add playwright -- npx @playwright/mcp@latest
 ```
 
-**Project setup**:
+Project setup:
 ```bash
 pnpm add -D playwright
 npx playwright install chromium
