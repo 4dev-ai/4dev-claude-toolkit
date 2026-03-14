@@ -41,10 +41,18 @@ Persistent browser and Electron interaction through Playwright for fast iterativ
 
 **Triggers**: "test the UI", "debug the browser", "check the page", "take a screenshot", "run visual QA", "test in browser"
 
-**Requirements**:
-- Playwright installed in the project (`pnpm add -D playwright`)
-- Browser binaries installed (`npx playwright install chromium`)
-- For Electron: `pnpm add -D electron`
+To add the Playwright MCP server:
+```bash
+claude mcp add playwright -- npx @playwright/mcp@latest
+```
+
+Project setup:
+```bash
+pnpm add -D playwright
+npx playwright install chromium
+# For Electron apps:
+# pnpm add -D electron
+```
 
 ---
 
