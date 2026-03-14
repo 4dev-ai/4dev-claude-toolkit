@@ -1,12 +1,12 @@
 ---
 name: expo-validation
-description: Use when user asks to "validate my changes", "check the simulator", "test this feature", "verify the UI", "does it look right", "check if it works", or after implementing UI changes that need visual/interaction verification. Validates Expo app implementations in iOS simulator.
-version: 0.2.0
+description: Use when user asks to "validate my changes", "check the simulator", "test this feature", "verify the UI", "does it look right", "check if it works", or after implementing UI changes that need visual/interaction verification. Validates Expo app implementations in iOS/Android simulator using agent-device.
+version: 0.3.0
 ---
 
 # Expo App Validation
 
-Validate Expo app implementations in iOS simulator after making code changes.
+Validate Expo app implementations in iOS/Android simulator after making code changes using [agent-device](https://github.com/callstackincubator/agent-device).
 
 ## When to Use
 
@@ -28,43 +28,63 @@ The app hot-reloads automatically when code changes. Focus on validation, not in
 
 ### 1. Check Current State
 
-Capture what's on screen:
-- MCP Tool: `mcp__plugin_ios_simulator__ui_view`
-- Returns compressed screenshot for quick viewing
+Capture a screenshot and accessibility snapshot:
+```bash
+npx agent-device snapshot -i
+```
+Returns the accessibility tree with a screenshot.
 
 ### 2. Understand UI Structure
 
-Get accessibility tree with element positions:
-- MCP Tool: `mcp__plugin_ios_simulator__ui_describe_all`
-- Returns: element types, labels, coordinates, interaction states
+Get accessibility tree with element positions and refs:
+```bash
+npx agent-device snapshot
+```
+Returns: element types, labels, coordinates, `@ref` identifiers for targeting.
 
 ### 3. Test Interactions
 
-Tap elements:
-- MCP Tool: `mcp__plugin_ios_simulator__ui_tap`
-- Parameters: `x`, `y` coordinates (get from ui_describe_all)
+Tap elements (by coordinates, @ref, or selector):
+```bash
+npx agent-device click @ref
+npx agent-device click 200 400
+```
 
-Type text:
-- MCP Tool: `mcp__plugin_ios_simulator__ui_type`
-- Parameter: `text` to enter
+Type text in focused field:
+```bash
+npx agent-device type "hello world"
+```
+
+Tap then type (fill):
+```bash
+npx agent-device fill 200 400 "hello world"
+npx agent-device fill @ref "hello world"
+```
 
 Swipe/scroll:
-- MCP Tool: `mcp__plugin_ios_simulator__ui_swipe`
-- Parameters: `x_start`, `y_start`, `x_end`, `y_end`
+```bash
+npx agent-device swipe 200 600 200 200
+npx agent-device scroll down 0.5
+```
+
+Long press:
+```bash
+npx agent-device longpress 200 400 1000
+```
 
 ## Validation Patterns
 
 ### After Implementing a Feature
 
-1. `ui_view()` - Capture current screen
+1. `npx agent-device snapshot -i` — capture current screen with screenshot
 2. Compare with user's requirements
 3. Report what matches and what needs adjustment
 4. If needed, iterate on implementation
 
 ### After UI Changes
 
-1. `ui_view()` - See visual result
-2. `ui_describe_all()` - Verify element structure
+1. `npx agent-device snapshot -i` — see visual result
+2. `npx agent-device snapshot` — verify element structure
 3. Check: layout, spacing, text content, colors
 4. Report discrepancies with fix suggestions
 
@@ -72,10 +92,18 @@ Swipe/scroll:
 
 1. Identify flow steps from requirements
 2. For each step:
-   - Perform interaction (tap/type/swipe)
-   - `ui_view()` - Capture result
+   - Perform interaction (click/type/swipe)
+   - `npx agent-device snapshot -i` — capture result
    - Verify expected outcome
 3. Report flow status
+
+### Waiting for Elements
+
+```bash
+npx agent-device wait text "Welcome"
+npx agent-device wait @ref
+npx agent-device wait 2000
+```
 
 ## Integration with Tmux
 
@@ -106,31 +134,40 @@ After validation, report:
 - Fixes to implement
 - Follow-up validations needed
 
-## MCP Tool Reference
+## Command Reference
 
-| Tool | Purpose |
-|------|---------|
-| `ui_view` | Quick screenshot |
-| `ui_describe_all` | Full accessibility tree |
-| `ui_describe_point` | Element at specific coordinates |
-| `ui_tap` | Simulate tap |
-| `ui_type` | Enter text |
-| `ui_swipe` | Scroll or swipe gestures |
-| `screenshot` | High-quality PNG to file |
-| `record_video` / `stop_recording` | Capture flow videos |
+| Command | Purpose |
+|---------|---------|
+| `snapshot -i` | Screenshot + accessibility tree |
+| `snapshot` | Accessibility tree only |
+| `click <x y\|@ref\|selector>` | Tap element |
+| `type <text>` | Type in focused field |
+| `fill <target> <text>` | Tap then type |
+| `swipe <x1> <y1> <x2> <y2>` | Swipe gesture |
+| `scroll <direction> [amount]` | Scroll (0-1 amount) |
+| `longpress <x> <y> [ms]` | Long press |
+| `wait text <text>` | Wait for text to appear |
+| `wait <ms>` | Wait duration |
+| `back` | Navigate back |
+| `home` | Go to home screen |
+| `alert get\|accept\|dismiss` | Handle alerts |
+| `apps` | List installed apps |
+| `open <app>` | Launch app |
+| `close [app]` | Close app |
 
 ## Coordinates
 
 - Origin (0, 0) at top-left
 - X increases right, Y increases down
-- Get element bounds from `ui_describe_all`
-- Tap center: (x + width/2, y + height/2)
+- Get element positions from `snapshot`
+- Use `@ref` identifiers from snapshot for reliable targeting
 
 ## Troubleshooting
 
 | Issue | Check |
 |-------|-------|
-| No response to taps | Element coordinates correct? Element enabled? |
+| No response to taps | Element coordinates correct? Use `@ref` instead |
 | Screen not updating | Tmux logs for Metro/build errors |
 | Wrong screen shown | Navigation state, app may need manual reset |
-| Text not appearing | Field focused first with ui_tap? |
+| Text not appearing | Field focused first with click? |
+| Device not found | Run `npx agent-device devices` to list available |

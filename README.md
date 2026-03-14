@@ -18,20 +18,15 @@ Tmux command reference for development workflow management. Provides patterns fo
 
 ### ios-validation (expo-validation)
 
-Validates Expo app implementations in the iOS Simulator after code changes. Captures screenshots, inspects the accessibility tree, and simulates user interactions.
+Validates Expo app implementations in iOS/Android simulators using [agent-device](https://github.com/callstackincubator/agent-device). Captures screenshots, inspects the accessibility tree, and simulates user interactions.
 
 **Triggers**: "validate my changes", "check the simulator", "does it look right?", "test this feature", "verify the UI"
 
 **Requirements**:
-- macOS with Xcode and iOS simulators installed
-- ios-simulator-mcp server configured
-- Facebook IDB tool (required by ios-simulator-mcp)
+- macOS with Xcode and iOS simulators (or Android emulator)
 - Expo app running in simulator (Expo Go or dev build)
 
-To add ios-simulator-mcp:
-```bash
-claude mcp add ios-simulator npx ios-simulator-mcp
-```
+agent-device runs via npx, no additional setup needed.
 
 ---
 
