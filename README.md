@@ -16,17 +16,16 @@ Tmux command reference for development workflow management. Provides patterns fo
 
 ---
 
-### ios-validation (expo-validation)
+### agent-device
 
-Validates Expo app implementations in iOS/Android simulators using [agent-device](https://github.com/callstackincubator/agent-device). Captures screenshots, inspects the accessibility tree, and simulates user interactions.
+Mobile automation for iOS simulators/devices and Android emulators/devices using [agent-device](https://github.com/callstackincubator/agent-device) by Callstack. Navigate apps, take snapshots/screenshots, tap, type, scroll, debug crashes, and more.
 
-**Triggers**: "validate my changes", "check the simulator", "does it look right?", "test this feature", "verify the UI"
+**Triggers**: "validate my changes", "check the simulator", "test this feature", "verify the UI", "navigate the app", "tap on", "take a screenshot"
 
 **Requirements**:
-- macOS with Xcode and iOS simulators (or Android emulator)
-- Expo app running in simulator (Expo Go or dev build)
-
-agent-device runs via npx, no additional setup needed.
+- iOS: macOS with Xcode and simulators
+- Android: Android SDK with emulator
+- agent-device runs via npx, no additional setup needed
 
 ---
 
