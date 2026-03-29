@@ -1,7 +1,7 @@
 {
   "name": "4dev",
   "version": "0.1.0",
-  "description": "4dev.ai development toolkit - tmux management, service monitoring, and more",
+  "description": "4dev.ai development toolkit - tmux management, service monitoring, agent factory, and more",
   "author": {
     "name": "ovidb"
   },
